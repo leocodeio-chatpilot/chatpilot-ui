@@ -23,21 +23,16 @@ RUN npm run build
 RUN npm prune --production
 
 # 🔹 Stage 2: Runner
-FROM node:23-alpine AS runner
+FROM nginx:alpine
 
-# Set working directory
-WORKDIR /app
+# Copy built files to the nginx html directory
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy necessary built files from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./
+# Copy nginx configuration if you have one
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Use non-root user for security
-USER node
+# Expose port
+EXPOSE 80
 
-# Expose the required port
-EXPOSE 3000
-
-# Start application
-CMD ["npm", "run", "start"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
