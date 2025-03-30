@@ -1,42 +1,28 @@
-    # 🔹 Optimized & Secured Development Environment
-    # Use a specific Alpine version for better reproducibility
-    FROM node:23-alpine AS development
+# 🔹 Development Environment
+FROM node:23-alpine
 
-    # --- Security: Create a non-root user and group ---
-    RUN addgroup --system --gid 1001 appgroup \
-        && adduser --system --uid 1001 appuser --ingroup appgroup
+# Install OS dependencies if needed for runtime or dev server (e.g., native modules)
+# RUN apk add --no-cache openssl some-other-package
 
-    # Set working directory
-    WORKDIR /app
+# Set working directory
+WORKDIR /app
 
-    # Install OS dependencies ONLY if absolutely necessary for runtime/dev server
-    # RUN apk add --no-cache openssl some-other-package
+# Copy package files first to leverage Docker cache
+COPY package*.json ./
 
-    # Copy package files
-    # Use chown to ensure the non-root user can modify node_modules if needed later
-    COPY --chown=appuser:appgroup package*.json ./
+# Install all dependencies (including devDependencies)
+RUN npm install
 
-    # Install dependencies and clean cache
-    # Running install as root first might be necessary for some global tools or permissions,
-    # but we'll switch to the non-root user right after.
-    # Alternatively, run everything as appuser if permissions allow.
-    RUN npm install
-    # --- Optimization: Clean npm cache ---
-    RUN npm cache clean --force
+# Copy the rest of the application code
+# Note: This ensures the code exists in the image if not mounted.
+# For development, you'll typically mount your local source code
+# using 'docker run -v $(pwd):/app' to see live changes.
+COPY . .
 
-    # Copy the rest of the application code as the non-root user
-    # Ensure .dockerignore is used to exclude secrets, .git, node_modules etc.
-    COPY --chown=appuser:appgroup . .
+# Expose the port the development server listens on
+# Common defaults are 3000, 5173 (Vite), 8080. Adjust if necessary.
+EXPOSE 3000
 
-    # --- Fix: Ensure the app directory itself is owned by appuser ---
-    # This allows the user to write temporary files (like Vite's transpiled config)
-    RUN chown -R appuser:appgroup /app
-
-    # --- Security: Switch to the non-root user ---
-    USER appuser
-
-    # Expose the port the development server listens on (adjust if necessary)
-    EXPOSE 3000
-
-    # Command to run the development server
-    CMD ["npm", "run", "dev"]
+# Command to run the development server
+# Adjust 'dev' if your script is named differently (e.g., 'start', 'serve:dev')
+CMD ["npm", "run", "dev"]
