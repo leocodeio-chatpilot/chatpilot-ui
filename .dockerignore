@@ -42,6 +42,35 @@ dist
 LICENSE
 README.md
 
+# Git repository files
+.git
+.gitignore
+
+# Node modules (should be installed within the container)
+node_modules
+
+# Runtime environment variables (use mounted volumes or other secure methods)
+.env
+.env.*
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build output (if any exists locally)
+dist
+build
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor/IDE directories
+.vscode
+.idea
 
 node_modules
 npm-debug.log
