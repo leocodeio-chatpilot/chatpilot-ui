@@ -7,32 +7,41 @@ RUN apk add --no-cache openssl
 # Set working directory
 WORKDIR /app
 
-# Copy package files first for better caching
-COPY package.json ./
+# --- Add nginx.conf.template to the source repo ---
+# --- Add entrypoint.sh to the source repo (ensure it's executable) ---
 
-# Install dependencies
-RUN npm install --frozen-lockfile
-
-# Copy application source code
+COPY package*.json ./
+# Use ci for potentially faster and more reliable installs in CI/build environments
+RUN npm ci --frozen-lockfile
 COPY . .
 
-# build application
+# --- Ensure your frontend code is modified to use relative /api paths ---
 RUN npm run build
-
-# Remove development dependencies to reduce image size
-RUN npm prune --production
 
 # 🔹 Stage 2: Runner
 FROM nginx:alpine
 
-# Copy built files to the nginx html directory
+# Install envsubst for substituting environment variables
+RUN apk add --no-cache gettext
+
+# Remove default nginx config served by the base image
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy built static files from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy nginx configuration if you have one
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy Nginx config template into a specific directory within the image
+# Nginx base image suggests using /etc/nginx/templates
+COPY --from=builder /app/nginx.conf.template /etc/nginx/templates/nginx.conf.template
 
-# Expose port
+# Copy and ensure the entrypoint script is executable
+COPY --from=builder /app/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Expose port 80 (already exposed by base image, but good practice)
 EXPOSE 80
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Set the entrypoint script to run when the container starts
+ENTRYPOINT ["/entrypoint.sh"]
+
+# CMD is now handled by the entrypoint script (exec nginx -g 'daemon off;')

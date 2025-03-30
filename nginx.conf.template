@@ -1,0 +1,63 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    # Increase max body size if needed for uploads, etc.
+    client_max_body_size 100M;
+
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    # Serve static files directly
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Proxy API requests for user service
+    # Nginx will forward requests from /api/user/v1/...
+    # to ${VITE_APP_USER_BACKEND_USER_URL}/...
+    location /api/user/v1/ {
+        # Use envsubst to replace this placeholder with the runtime env var value
+        proxy_pass ${VITE_APP_USER_BACKEND_USER_URL}/; # Note the trailing slash is important
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        # Add timeout adjustments if needed
+        # proxy_connect_timeout       600;
+        # proxy_send_timeout          600;
+        # proxy_read_timeout          600;
+        # send_timeout                600;
+    }
+
+    # Proxy API requests for model service
+    # Nginx will forward requests from /api/model/v1/...
+    # to ${VITE_APP_USER_BACKEND_MODEL_URL}/...
+    location /api/model/v1/ {
+        # Use envsubst to replace this placeholder with the runtime env var value
+        proxy_pass ${VITE_APP_USER_BACKEND_MODEL_URL}/; # Note the trailing slash is important
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        # Add timeout adjustments if needed
+        # proxy_connect_timeout       600;
+        # proxy_send_timeout          600;
+        # proxy_read_timeout          600;
+        # send_timeout                600;
+    }
+
+    # Optional: Add cache control headers for static assets
+    location ~* \.(?:css|js|jpg|jpeg|gif|png|ico|woff|woff2|ttf|eot|svg)$ {
+        expires 1y;
+        add_header Cache-Control "public";
+    }
+}
