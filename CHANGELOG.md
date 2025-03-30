@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.2...v1.0.3) (2025-03-30)
+
+
+### Bug Fixes
+
+* **image not getting updated:** image not getting updated ([b06ec7d](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/b06ec7d773b8c7f095cdcd705eea86b154ceeae2))
+
 ## [1.0.2](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.1...v1.0.2) (2025-03-30)
 
 
