@@ -1,8 +1,8 @@
 # 🔹 Stage 1: Builder
 FROM node:23-alpine AS builder
 
-# Install dependencies
-RUN apk add --no-cache openssl
+# Install dependencies (if needed for build, e.g., node-gyp)
+# RUN apk add --no-cache python3 make g++
 
 # Set working directory
 WORKDIR /app
@@ -15,33 +15,25 @@ COPY package*.json ./
 RUN npm install --frozen-lockfile
 COPY . .
 
-# --- Ensure your frontend code is modified to use relative /api paths ---
+# Build the static assets
 RUN npm run build
 
 # 🔹 Stage 2: Runner
-FROM nginx:alpine
+FROM node:23-alpine
 
-# Install envsubst for substituting environment variables
-RUN apk add --no-cache gettext
+# Install serve globally
+RUN npm install -g serve
 
-# Remove default nginx config served by the base image
-RUN rm /etc/nginx/conf.d/default.conf
+# Set working directory (optional, but good practice)
+WORKDIR /app
 
 # Copy built static files from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Ensure the source path matches your build output directory (usually 'dist' or 'build')
+COPY --from=builder /app/dist ./dist
 
-# Copy Nginx config template into a specific directory within the image
-# Nginx base image suggests using /etc/nginx/templates
-COPY --from=builder /app/nginx.conf.template /etc/nginx/templates/nginx.conf.template
+# Expose the port serve listens on (default is 3000)
+EXPOSE 3000
 
-# Copy and ensure the entrypoint script is executable
-COPY --from=builder /app/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-# Expose port 80 (already exposed by base image, but good practice)
-EXPOSE 80
-
-# Set the entrypoint script to run when the container starts
-ENTRYPOINT ["/entrypoint.sh"]
-
-# CMD is now handled by the entrypoint script (exec nginx -g 'daemon off;')
+# Command to serve the 'dist' directory
+# '-s' flag ensures it works well with single-page applications (SPA routing)
+CMD ["serve", "-s", "dist"]
