@@ -1,6 +1,6 @@
 # 🔹 Optimized & Secured Development Environment
 # Use a specific Alpine version for better reproducibility
-FROM node:23-alpine3.18 AS development
+FROM node:23-alpine AS development
 
 # --- Security: Create a non-root user and group ---
 RUN addgroup --system --gid 1001 appgroup \
