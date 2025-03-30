@@ -12,7 +12,7 @@ WORKDIR /app
 
 COPY package*.json ./
 # Use ci for potentially faster and more reliable installs in CI/build environments
-RUN npm ci --frozen-lockfile
+RUN npm install --frozen-lockfile
 COPY . .
 
 # --- Ensure your frontend code is modified to use relative /api paths ---
