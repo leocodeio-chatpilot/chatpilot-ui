@@ -21,7 +21,7 @@ COPY . .
 
 # Expose the port the development server listens on
 # Common defaults are 3000, 5173 (Vite), 8080. Adjust if necessary.
-EXPOSE 3000
+EXPOSE 5173
 
 # Command to run the development server
 # Adjust 'dev' if your script is named differently (e.g., 'start', 'serve:dev')
