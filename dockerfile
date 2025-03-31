@@ -25,4 +25,4 @@ EXPOSE 5173
 
 # Command to run the development server
 # Adjust 'dev' if your script is named differently (e.g., 'start', 'serve:dev')
-CMD ["npm", "run", "dev", "--host"]
+CMD ["npm", "run", "dev"]
