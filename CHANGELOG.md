@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.4...v1.0.5) (2025-03-31)
+
+
+### Performance Improvements
+
+* **Allowed hosts added:** Allowed hosts added ([c6df1d4](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/c6df1d489d2789b241d41d7b173e31e1be410d7c))
+
 ## [1.0.4](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.3...v1.0.4) (2025-03-31)
 
 
