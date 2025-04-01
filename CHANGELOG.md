@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.5...v1.0.6) (2025-04-01)
+
+
+### Bug Fixes
+
+* **signin and signout routing:** signin and signout routing ([b5b1a9f](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/b5b1a9fc948361b3256ec0632a5e0c8638229ab9))
+
 ## [1.0.5](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.4...v1.0.5) (2025-03-31)
 
 
