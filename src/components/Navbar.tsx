@@ -52,7 +52,7 @@ const Navbar = () => {
     } else {
       setSingedIn(true);
     }
-  }, []);
+  }, [singedIn]);
 
   if (isLoading) {
     return (
@@ -111,7 +111,12 @@ const Navbar = () => {
         </div>
 
         <ul className="list-none hidden sm:flex flex-row gap-10">
-          <Navlinks active={active} setActive={setActive} singedIn={singedIn} />
+          <Navlinks
+            active={active}
+            setActive={setActive}
+            singedIn={singedIn}
+            setSingedIn={setSingedIn}
+          />
           <ToggleButton />
         </ul>
 
@@ -134,6 +139,7 @@ const Navbar = () => {
                 active={active}
                 setActive={setActive}
                 singedIn={singedIn}
+                setSingedIn={setSingedIn}
               />
             </ul>
           </div>

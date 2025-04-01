@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 function Entry() {
   useEffect(() => {
-    toast.success("welcome to chatpilot");
+    
   }, []);
 
   return (

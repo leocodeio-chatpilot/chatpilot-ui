@@ -9,18 +9,21 @@ const Navlinks = ({
   active,
   setActive,
   singedIn,
+  setSingedIn,
 }: {
   active: string;
   setActive: (title: string) => void;
   singedIn: boolean;
+  setSingedIn: (singedIn: boolean) => void;
 }) => {
   const navigate = useNavigate();
-  const handleSignout = async (e: React.MouseEvent<HTMLLIElement>) => {
+  const handleSignout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       await signout();
       console.log("signed out");
       toast.success("Signed out successfully");
+      setSingedIn(false);
       navigate("/");
     } catch (error: any) {
       console.log(error);
@@ -79,9 +82,8 @@ const Navlinks = ({
                   ? "text-white dark:text-secondary"
                   : "text-secondary dark:text-black"
               } hover:text-white text-[18px] font-medium cursor-pointer dark:hover:text-gray-700 textwrap-nowrap`}
-              onClick={handleSignout}
             >
-              <Link to={`/${nav.id}`}>{nav.title}</Link>
+              <button onClick={(e) => handleSignout(e)}>{nav.title}</button>
             </li>
           ))}
         </>

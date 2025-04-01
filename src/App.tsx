@@ -11,7 +11,7 @@ import "./App.css";
 import { Toaster } from "react-hot-toast";
 import { useLoading } from "./context/LoadingContext";
 import { LoadingScreen } from "./components/utils/Loadingscreen";
-
+import Signout from "./components/Signout";
 const AppContent = () => {
   const { markRendered } = useLoading();
 
@@ -26,6 +26,7 @@ const AppContent = () => {
         <Route path="/" element={<Entry />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signout" element={<Signout />} />
         <Route path="/docs" element={<Docs />} />
         <Route path="/try" element={<Try />} />
         <Route path="/profile" element={<Profile />} />
