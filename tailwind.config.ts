@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "hero-bg-light": "url('/public/assets/hero/dark-hero-bg.png')",
-        "hero-bg": "url('/public/assets/hero/light-hero-bg.png')",
+        "hero-bg-light": "url('/assets/hero/dark-hero-bg.png')",
+        "hero-bg": "url('/assets/hero/light-hero-bg.png')",
       },
       fontFamily: {
         sans: [
