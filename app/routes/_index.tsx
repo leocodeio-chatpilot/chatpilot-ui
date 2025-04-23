@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import Header from "~/components/landing/LandingHeader";
 import { useTranslation } from "react-i18next";
 import { LandingHero } from "~/components/landing/LandingHero";
+import HowItWorks from "~/components/landing/HowItWorks";
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,6 +19,7 @@ export default function Index() {
       <div className="h-full w-full bg-hero-bg bg-cover bg-no-repeat bg-center dark:bg-hero-bg-light">
         <Header />
         <LandingHero />
+        <HowItWorks />
       </div>
     </div>
   );
