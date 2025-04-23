@@ -3,6 +3,7 @@ import Header from "~/components/landing/LandingHeader";
 import { useTranslation } from "react-i18next";
 import { LandingHero } from "~/components/landing/LandingHero";
 import HowItWorks from "~/components/landing/HowItWorks";
+import Pricing from "~/components/landing/Pricing";
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,6 +21,7 @@ export default function Index() {
         <Header />
         <LandingHero />
         <HowItWorks />
+        <Pricing />
       </div>
     </div>
   );
