@@ -1,6 +1,7 @@
 {
-  "name": "",
+  "name": "frontend_chatpilot",
   "private": true,
+  "version": "1.0.6",
   "sideEffects": false,
   "type": "module",
   "scripts": {
