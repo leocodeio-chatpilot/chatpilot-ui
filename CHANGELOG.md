@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.3...v1.1.4) (2025-04-23)
+
+
+### Performance Improvements
+
+* **pricing aread done :** pricing aread done ([26328ae](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/26328ae4aa1d537d2644d319a6b41f2a3b103a00))
+
 ## [1.1.3](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.2...v1.1.3) (2025-04-23)
 
 
