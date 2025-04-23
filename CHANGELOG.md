@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.6...v1.1.0) (2025-04-23)
+
+
+### Features
+
+* **sr and remix:** sr and remix ([2e1f9b2](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/2e1f9b21e49e031f73097fc3b52b206a40b8c4f2))
+* **switch to remix:** switch to remix ([f841aee](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/f841aeea5d9378df8af4b4d79f2a629247df9549))
+* **updated codebase to remix:** updated codebase to remix ([afab72c](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/afab72cd902045b883924e0da729c1b408316648))
+
 ## [1.0.6](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.5...v1.0.6) (2025-04-01)
 
 
