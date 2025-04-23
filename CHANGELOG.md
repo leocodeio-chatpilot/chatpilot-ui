@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.2...v1.1.3) (2025-04-23)
+
+
+### Performance Improvements
+
+* **added try now part:** added try now part ([55f1605](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/55f1605b5b0f2055511339e6b8dcf41a5cea3a80))
+
 ## [1.1.2](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.1...v1.1.2) (2025-04-23)
 
 
