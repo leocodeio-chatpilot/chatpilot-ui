@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.1...v1.1.2) (2025-04-23)
+
+
+### Performance Improvements
+
+* **hero updated:** hero updated ([c223bec](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/c223bec358117a4661fa26ea4beed58983f64c56))
+
 ## [1.1.1](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.0...v1.1.1) (2025-04-23)
 
 
