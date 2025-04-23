@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.0...v1.1.1) (2025-04-23)
+
+
+### Bug Fixes
+
+* **sr and remxi:** sr and remxi ([3d9c864](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/3d9c864e950dfdc3494840c0cedf91d5d758c1ff))
+
 # [1.1.0](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.0.6...v1.1.0) (2025-04-23)
 
 
