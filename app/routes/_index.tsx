@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import Header from "~/components/landing/header";
+import Header from "~/components/landing/LandingHeader";
 import { useTranslation } from "react-i18next";
 
 export const meta: MetaFunction = () => {
