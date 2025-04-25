@@ -4,6 +4,7 @@ import { LandingHero } from "~/components/landing/LandingHero";
 import HowItWorks from "~/components/landing/HowItWorks";
 import Pricing from "~/components/landing/Pricing";
 import Contact from "~/components/landing/Contact";
+import { loader as LandingLoader } from "./loader+/landing.loader";
 import { action as LandingAction } from "~/routes/action+/landing+/mail";
 export const meta: MetaFunction = () => {
   return [
@@ -13,6 +14,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const action = LandingAction;
+export const loader = LandingLoader;
 
 export default function Index() {
   return (

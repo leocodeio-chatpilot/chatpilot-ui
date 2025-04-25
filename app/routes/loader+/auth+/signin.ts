@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, redirect } from "@remix-run/node";
-import { userSession } from "~/services/sessions.server";
+import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
+import { userSession } from "@/services/sessions.server";
 
 export const ROUTE_PATH = "/auth/signin" as const;
 
@@ -8,9 +8,9 @@ export async function loader({
 }: LoaderFunctionArgs): Promise<Response | null> {
   // If user is already authenticated, redirect to dashboard
   const session = await userSession(request);
-  const user = session.getUserSession();
-  if (user) {
-    return redirect("/dashboard");
+  const isAuthenticated = session.getUserSession()?.isAuthenticated;
+  if (isAuthenticated) {
+    return redirect("/");
   }
   return null;
 }

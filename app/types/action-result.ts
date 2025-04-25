@@ -1,22 +1,15 @@
-export type ORIGIN =
-  | "email"
-  | "password"
-  | "topics"
-  | "respond"
-  | "role"
-  | "source"
-  | "companyName";
+export type ORIGIN = "email" | "password";
 
 export type ActionResultSuccess<T> = {
-  origin?: ORIGIN;
   success: true;
+  origin?: ORIGIN;
   message: string;
   data: T | null;
 };
 
 export type ActionResultError<T> = {
   success: false;
-  origin?: ORIGIN;
+  origin: ORIGIN;
   message: string;
   data: T | null;
 };
