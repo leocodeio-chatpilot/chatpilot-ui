@@ -1,5 +1,5 @@
 import { ActionFunctionArgs } from "@remix-run/node";
-import emailjs from "@emailjs/browser";
+import emailjs from "@emailjs/nodejs";
 import { ActionResult } from "~/types/action-result";
 
 export const action = async ({
@@ -10,12 +10,19 @@ export const action = async ({
   const name = formData.get("name");
   const message = formData.get("message");
   console.log(`Email: ${email}, Name: ${name}, Message: ${message}`);
-
-  if (!name || !email || !message) {
+  console.log(
+    "Sending email...\n",
+    process.env.REACT_APP_MAIL_SERVICE_ID,
+    "\n",
+    process.env.REACT_APP_MAIL_TEMPLATE_ID,
+    "\n",
+    process.env.REACT_APP_MAIL_PUBLIC_KEY
+  );
+  if (name && email && message) {
     emailjs
       .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        process.env.REACT_APP_MAIL_SERVICE_ID as string,
+        process.env.REACT_APP_MAIL_TEMPLATE_ID as string,
         {
           from_name: name,
           to_name: "Harsha Leo",
@@ -23,7 +30,9 @@ export const action = async ({
           to_email: "saiharsha9897@gmail.com",
           message: message,
         },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+        {
+          publicKey: process.env.REACT_APP_MAIL_PUBLIC_KEY as string,
+        }
       )
       .then(() => {
         console.log("Email sent successfully");
@@ -32,6 +41,7 @@ export const action = async ({
         console.error("Error sending email:", error);
         return {
           success: false,
+          origin: "email",
           message: "Error sending email",
           data: null,
         };
@@ -40,6 +50,7 @@ export const action = async ({
   // Send email using EmailJS
   return {
     success: true,
+    origin: "email",
     message: "Email sent successfully",
     data: null,
   };
@@ -59,8 +70,8 @@ export const action = async ({
 //     }
 //     emailjs
 //       .send(
-//         import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-//         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+//         process.env.VITE_APP_EMAILJS_SERVICE_ID,
+//         process.env.VITE_APP_EMAILJS_TEMPLATE_ID,
 //         {
 //           from_name: form.name,
 //           to_name: "Harsha Leo",
@@ -68,7 +79,7 @@ export const action = async ({
 //           to_email: "saiharsha9897@gmail.com",
 //           message: form.message,
 //         },
-//         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+//         process.env.VITE_APP_EMAILJS_PUBLIC_KEY
 //       )
 //       .then(
 //         () => {

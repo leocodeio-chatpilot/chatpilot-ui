@@ -8,6 +8,7 @@ export type ORIGIN =
   | "companyName";
 
 export type ActionResultSuccess<T> = {
+  origin?: ORIGIN;
   success: true;
   message: string;
   data: T | null;
@@ -15,7 +16,7 @@ export type ActionResultSuccess<T> = {
 
 export type ActionResultError<T> = {
   success: false;
-  origin: ORIGIN;
+  origin?: ORIGIN;
   message: string;
   data: T | null;
 };

@@ -1,10 +1,12 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 // import { EarthCanvas } from "./canvas";
 // import { SectionWrapper } from "./hoc";
 import { slideIn } from "./utils/motion";
-import { Form } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
+import { toast } from "~/hooks/use-toast";
+import { ActionResult } from "~/types/action-result";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -24,6 +26,37 @@ const Contact = () => {
       [name]: value,
     });
   };
+
+  const actionData = useActionData<ActionResult<any>>();
+  // console.log(actionData);
+  useEffect(() => {
+    if (actionData) {
+      if (actionData.success) {
+        if (actionData.origin === "email") {
+          toast({
+            title: "email sent success",
+            description: actionData.message,
+            variant: "default",
+          });
+          console.log(actionData.message);
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+          setLoading(false);
+          //
+        }
+      } else {
+        toast({
+          title: "email sent error",
+          description: actionData.message,
+          variant: "destructive",
+        });
+        console.error(actionData.message);
+      }
+    }
+  }, [actionData]);
   return (
     <section
       id="contact"
@@ -44,7 +77,11 @@ const Contact = () => {
               Contact Us
             </h2>
 
-            <Form method="post" className="mt-8 sm:mt-12 flex flex-col gap-6">
+            <Form
+              onSubmit={() => setLoading(true)}
+              method="post"
+              className="mt-8 sm:mt-12 flex flex-col gap-6"
+            >
               <label className="flex flex-col">
                 <span className="text-gray-800 dark:text-gray-200 font-medium mb-2">
                   Your Name
