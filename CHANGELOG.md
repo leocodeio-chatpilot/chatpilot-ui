@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.5...v1.1.6) (2025-04-25)
+
+
+### Performance Improvements
+
+* **code for contact:** code for contact ([f2dfdc4](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/f2dfdc45be4df53ae0bd64110aec032f4f6b3fed))
+
 ## [1.1.5](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.4...v1.1.5) (2025-04-23)
 
 ## [1.1.4](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.3...v1.1.4) (2025-04-23)
