@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.6...v1.2.0) (2025-04-25)
+
+
+### Features
+
+* **authe implemented:** authe implemented ([06ee0e6](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/06ee0e6d5d2433338308c2b8573a4de4b25935a0))
+
 ## [1.1.6](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.5...v1.1.6) (2025-04-25)
 
 
