@@ -6,6 +6,7 @@ import {
   useActionData,
   useNavigation,
   useSubmit,
+  useNavigate,
 } from "@remix-run/react";
 import { Home, Loader2 } from "lucide-react";
 import { Button } from "~/components/ui/button";
@@ -78,7 +79,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Try() {
   const { t } = useTranslation();
-  const [chat, setChat] = useState(false);
+  const navigate = useNavigate();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const actionData = useActionData<{ success: boolean; message: string }>();
@@ -103,6 +104,10 @@ export default function Try() {
       });
     }
   }
+
+  const handleChatRedirect = () => {
+    navigate("/feature/chat");
+  };
 
   return (
     <div className="relative w-full min-h-svh overflow-hidden bg-gradient-to-b from-white via-purple-50 to-white dark:from-[#13111C] dark:via-[#1F1B3C] dark:to-[#13111C]">
@@ -143,11 +148,11 @@ export default function Try() {
 
         <div className="flex justify-center items-center mb-8 gap-4">
           <Button
-            onClick={() => setChat(!chat)}
+            onClick={handleChatRedirect}
             variant="outline"
             className="bg-white/80 dark:bg-gray-800/80 rounded-full shadow-lg z-10"
           >
-            {chat ? "Create API Key" : "Try Chat"}
+            Try Chat Demo
           </Button>
           <Link to="/home">
             <Button variant="ghost" size="icon" className="rounded-full">
@@ -157,64 +162,53 @@ export default function Try() {
           <ModeToggle />
         </div>
 
-        {!chat ? (
-          <div className="flex flex-col w-full items-center max-w-xl bg-white/80 dark:bg-gray-800/70 p-8 rounded-xl shadow-lg backdrop-blur-sm">
-            <Form method="post" className="w-full space-y-6">
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
-                Enter Website Details
-              </h2>
-
-              <div className="space-y-4 w-full">
-                <div className="space-y-2">
-                  <Label htmlFor="websiteName">Website Name</Label>
-                  <Input
-                    id="websiteName"
-                    name="websiteName"
-                    placeholder="My Website"
-                    className="bg-white/90 dark:bg-gray-700/90"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="websiteUrl">Website URL</Label>
-                  <Input
-                    id="websiteUrl"
-                    name="websiteUrl"
-                    type="url"
-                    placeholder="https://example.com"
-                    className="bg-white/90 dark:bg-gray-700/90"
-                    required
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating API...
-                    </>
-                  ) : (
-                    "ChatPilot your website"
-                  )}
-                </Button>
-              </div>
-            </Form>
-          </div>
-        ) : (
-          <div className="flex flex-col w-full items-center max-w-xl bg-white/80 dark:bg-gray-800/70 p-8 rounded-xl shadow-lg backdrop-blur-sm">
+        <div className="flex flex-col w-full items-center max-w-xl bg-white/80 dark:bg-gray-800/70 p-8 rounded-xl shadow-lg backdrop-blur-sm">
+          <Form method="post" className="w-full space-y-6">
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
-              Chat Feature Coming Soon
+              Enter Website Details
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              We're currently working on implementing the chat interface.
-            </p>
-          </div>
-        )}
+
+            <div className="space-y-4 w-full">
+              <div className="space-y-2">
+                <Label htmlFor="websiteName">Website Name</Label>
+                <Input
+                  id="websiteName"
+                  name="websiteName"
+                  placeholder="My Website"
+                  className="bg-white/90 dark:bg-gray-700/90"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="websiteUrl">Website URL</Label>
+                <Input
+                  id="websiteUrl"
+                  name="websiteUrl"
+                  type="url"
+                  placeholder="https://example.com"
+                  className="bg-white/90 dark:bg-gray-700/90"
+                  required
+                />
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating API...
+                  </>
+                ) : (
+                  "ChatPilot your website"
+                )}
+              </Button>
+            </div>
+          </Form>
+        </div>
 
         <Link
           to="/home/profile"
