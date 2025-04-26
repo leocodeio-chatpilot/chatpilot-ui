@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { language } from "@/utils/language";
+import { useEffect, useState } from "react";
 
 export default function CommonHeader() {
   const { i18n } = useTranslation();
@@ -42,8 +43,30 @@ export default function CommonHeader() {
     );
   };
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setScrolled(scrollTop > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 fixed top-0 left-0 right-0  z-50 ">
+    <header
+      className={`
+      flex h-auto w-full shrink-0 items-center p-4 py-5 md:px-6 fixed top-0 left-0 right-0 z-50
+      transition-all duration-300 ease-in-out
+      ${
+        scrolled
+          ? "bg-white/110 dark:bg-black/110 backdrop-blur-md backdrop-saturate-150 border-b border-gray-200 dark:border-gray-800 shadow-sm"
+          : "bg-transparent border-transparent"
+      }
+    `}
+    >
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">

@@ -33,6 +33,34 @@ export function ErrorBoundary() {
   return (
     <GeneralErrorBoundary
       statusHandlers={{
+        500: () => (
+          <div className="container flex h-screen items-center justify-center">
+            <Card className="w-full max-w-md">
+              <CardHeader>
+                <Alert className="flex flex-col gap-2 p-6">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>500 Error</AlertTitle>
+                  <AlertDescription>Internal server error</AlertDescription>
+                </Alert>
+              </CardHeader>
+
+              <CardContent className="flex flex-col gap-4">
+                <p className="text-muted-foreground">
+                  Something went wrong. Please try again later.
+                </p>
+              </CardContent>
+
+              <CardFooter>
+                <Button asChild variant="default" className="w-full">
+                  <Link to="/" className="flex items-center gap-2">
+                    <Home className="h-4 w-4" />
+                    Back to Home
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        ),
         404: () => (
           <div className="container flex h-screen items-center justify-center">
             <Card className="w-full max-w-md">

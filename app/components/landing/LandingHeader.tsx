@@ -41,7 +41,7 @@ export default function LandingHeader() {
         transition-all duration-300 ease-in-out
         ${
           scrolled
-            ? "bg-white/90 dark:bg-black/90 backdrop-blur-md backdrop-saturate-150 border-b border-gray-200 dark:border-gray-800 shadow-sm"
+            ? "bg-white/110 dark:bg-black/110 backdrop-blur-md backdrop-saturate-150 border-b border-gray-200 dark:border-gray-800 shadow-sm"
             : "bg-transparent border-transparent"
         }
       `}
