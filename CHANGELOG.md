@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.0...v1.2.1) (2025-04-26)
+
+
+### Performance Improvements
+
+* **home page after authenticated:** home page after authenticated ([4cf6d0e](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/4cf6d0e4e04f5ad715ea3ad0ab230b61eddf0e86))
+
 # [1.2.0](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.1.6...v1.2.0) (2025-04-25)
 
 
