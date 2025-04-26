@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.1...v1.2.2) (2025-04-26)
+
+
+### Performance Improvements
+
+* **home and featrue:** home and featrue ([b07b357](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/b07b357b6337db03ad4cbb8688609c3f259bba08))
+
 ## [1.2.1](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.0...v1.2.1) (2025-04-26)
 
 
