@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.2...v1.2.3) (2025-04-26)
+
+
+### Performance Improvements
+
+* **frontend skeleton done:** frontend skeleton done ([4281e71](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/4281e7122ca5024014d851bde3cdcf2412c2a5b9))
+
 ## [1.2.2](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.1...v1.2.2) (2025-04-26)
 
 
