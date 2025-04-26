@@ -63,12 +63,13 @@ const Contact = () => {
       className="relative w-full py-16 sm:py-24 overflow-hidden bg-gradient-to-b from-purple-50 to-white dark:from-[#171232] dark:to-[#13111C]"
     >
       <div className="container mx-auto px-4 sm:px-8">
+        {/* Changed this div to use flex-col by default and xl:flex-row for large screens */}
         <div className="max-w-5xl mx-auto xl:mt-12 flex flex-col xl:flex-row gap-10 w-full">
           <motion.div
             variants={slideIn("left", "tween", 0, 1)}
             initial="hidden"
             whileInView="show"
-            className="flex-[0.75] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md backdrop-saturate-150 p-6 sm:p-10 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg"
+            className="w-full xl:flex-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md backdrop-saturate-150 p-6 sm:p-10 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg"
           >
             <p className="text-sm sm:text-base text-purple-600 dark:text-purple-400 uppercase tracking-wider font-medium">
               Get in touch
@@ -139,7 +140,7 @@ const Contact = () => {
             variants={slideIn("right", "tween", 0.2, 1)}
             initial="hidden"
             whileInView="show"
-            className="xl:flex-1 flex flex-col justify-center"
+            className="w-full xl:flex-1 flex flex-col justify-center"
           >
             <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md backdrop-saturate-150 p-6 sm:p-10 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">

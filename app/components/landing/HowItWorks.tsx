@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { slideIn } from "./utils/motion";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import { loader as HomeLoader } from "~/routes/loader+/home+";
 
 const HowItWorks = () => {
+  const { isAuthenticated } = useLoaderData<typeof HomeLoader>();
   return (
     <section
       id="howitworks"
@@ -67,7 +69,7 @@ const HowItWorks = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <Link
-              to="/docs"
+              to="/feature/docs"
               className="px-8 py-4 rounded-xl bg-purple-600 text-white font-bold
               hover:bg-purple-700 transition-all duration-300 text-center
               min-w-[200px] transform hover:scale-105 hover:shadow-lg
@@ -76,8 +78,7 @@ const HowItWorks = () => {
               <p>View Docs</p>
             </Link>
             <Link
-              // to={signedIn ? "/try" : "/signin"}
-              to={"/try"}
+              to={isAuthenticated ? "/feature/try" : "/auth/signin"}
               className="px-8 py-4 rounded-xl bg-transparent text-purple-800 dark:text-white 
               font-bold border-2 border-purple-600 hover:bg-purple-600 hover:text-white
               transition-all duration-300 text-center min-w-[200px] transform hover:scale-105

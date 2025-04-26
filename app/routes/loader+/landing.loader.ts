@@ -5,7 +5,7 @@ export const ROUTE_PATH = "/" as const;
 
 export async function loader({
   request,
-}: LoaderFunctionArgs): Promise<Response | null> {
+}: LoaderFunctionArgs): Promise<Response | any> {
   // If user is already authenticated, redirect to dashboard
   const session = await userSession(request);
   const isAuthenticated = session.isAuthenticated();
@@ -13,5 +13,5 @@ export async function loader({
   if (isAuthenticated) {
     return redirect("/home");
   }
-  return null;
+  return { isAuthenticated };
 }

@@ -19,7 +19,7 @@ export const loader = LandingLoader;
 export default function Index() {
   return (
     <div className="w-screen h-screen">
-      <div className="h-full w-full bg-hero-bg bg-cover bg-no-repeat bg-center dark:bg-hero-bg-light">
+      <div className="h-full w-screen bg-hero-bg bg-cover bg-no-repeat bg-center dark:bg-hero-bg-light">
         <LandingHeader />
         <LandingHero />
         <HowItWorks />

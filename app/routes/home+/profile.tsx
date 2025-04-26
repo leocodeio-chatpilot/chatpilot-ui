@@ -62,8 +62,8 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <Card>
+    <div className="flex flex-col">
+      <Card className="w-full max-w-sm mx-auto  my-20">
         <CardHeader>
           <CardTitle className="text-2xl">Profile</CardTitle>
           <CardDescription>

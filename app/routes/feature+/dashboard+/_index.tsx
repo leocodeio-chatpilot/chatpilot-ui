@@ -1,7 +1,7 @@
 import { Form, Link } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button";
-import { loader as dashboardLoader } from "~/routes/loader+/dashboard+/index";
+import { loader as dashboardLoader } from "~/routes/loader+/dashboard+";
 import { action as logoutAction } from "~/routes/action+/auth+/logout.action";
 
 export const loader = dashboardLoader;
