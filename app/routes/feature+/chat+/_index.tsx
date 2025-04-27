@@ -1,23 +1,32 @@
+import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "@/hooks/use-toast";
-// import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { SendHorizonalIcon, Home } from "lucide-react";
-import { Link } from "@remix-run/react";
+import { toast } from "~/hooks/use-toast";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
+import { action as queryApiAction } from "~/routes/action+/feature+/chat+/queryApi.action";
+import { Home } from "lucide-react";
+import { ModeToggle } from "~/components/mode-toggle";
 import { motion } from "framer-motion";
-import { ModeToggle } from "@/components/mode-toggle";
+export const action = queryApiAction;
 
 interface ChatMessage {
-  text: string;
-  sender: "user" | "bot";
+  role: "user" | "assistant";
+  content: string;
 }
 
 export default function Chat() {
   const [chatData, setChatData] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [apiKey, setApiKey] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  // Now we use useNavigation and useActionData hooks instead of handling submission manually
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+  const actionData = useActionData<{
+    success: boolean;
+    message: string;
+    data: any;
+  }>();
 
   // Create chat scroll ref hook
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -30,10 +39,34 @@ export default function Chat() {
     }
   }, [chatData]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Handle the response from the action
+  useEffect(() => {
+    if (actionData) {
+      console.log("Action Data:", actionData);
+      if (actionData.success) {
+        // Update chat with the response
+        console.log(chatData);
+        setChatData((prev) => [
+          ...prev,
+          { role: "user", content: chatInput },
+          { role: "assistant", content: actionData.data.payload.response },
+        ]);
+        // Reset the input field
+        setChatInput("");
+      } else {
+        toast({
+          title: "Error",
+          description: actionData.message,
+          variant: "destructive",
+        });
+      }
+    }
+  }, [actionData]);
 
+  // Validate before submission
+  const validateBeforeSubmit = (event: React.FormEvent) => {
     if (apiKey === "") {
+      event.preventDefault();
       toast({
         title: "API Key Required",
         description: "Please enter your API key to continue.",
@@ -43,61 +76,13 @@ export default function Chat() {
     }
 
     if (!chatInput.trim()) {
+      event.preventDefault();
       toast({
         title: "Empty Message",
         description: "Please enter a message to send.",
         variant: "destructive",
       });
       return;
-    }
-
-    setChatData((prev) => [...prev, { text: chatInput, sender: "user" }]);
-    const sentMessage = chatInput;
-    setChatInput("");
-    setIsLoading(true);
-
-    try {
-      // Use environment variable for API URL
-      const apiUrl = process.env.VITE_APP_USER_BACKEND_MODEL_URL || "/api";
-
-      // const response = await axios.post(
-      //   `${apiUrl}/query`,
-      //   {
-      //     queryText: sentMessage,
-      //     apiKey: apiKey,
-      //   },
-      //   {
-      //     withCredentials: true,
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-
-      // if (response.status === 404) {
-      //   toast({
-      //     title: "Invalid API Key",
-      //     description: "The provided API key is invalid.",
-      //     variant: "destructive",
-      //   });
-      //   setIsLoading(false);
-      //   return;
-      // }
-
-      // const data = response.data;
-      // setChatData((prev) => [
-      //   ...prev,
-      //   { text: data.payload.response, sender: "bot" },
-      // ]);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
-      console.error("Chat error:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -163,19 +148,17 @@ export default function Chat() {
                   <div
                     key={index}
                     className={`flex ${
-                      message.sender === "user"
-                        ? "justify-end"
-                        : "justify-start"
+                      message.role === "user" ? "justify-end" : "justify-start"
                     }`}
                   >
                     <span
                       className={`px-4 py-2 rounded-lg max-w-[70%] ${
-                        message.sender === "user"
+                        message.role === "user"
                           ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white"
                           : "bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-purple-200 dark:border-purple-900/30"
                       } shadow-sm`}
                     >
-                      {message.text}
+                      {message.content}
                     </span>
                   </div>
                 ))
@@ -187,7 +170,7 @@ export default function Chat() {
                 </div>
               )}
 
-              {isLoading && (
+              {isSubmitting && (
                 <div className="flex justify-start">
                   <span className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-purple-200 dark:border-purple-900/30 shadow-sm">
                     <div className="flex space-x-2">
@@ -218,26 +201,34 @@ export default function Chat() {
             </div>
 
             {/* Message input and send button */}
-            <form
-              onSubmit={handleSendMessage}
+            <Form
+              method="post"
+              onSubmit={validateBeforeSubmit}
               className="flex items-center p-4 border-t border-purple-100 dark:border-purple-900/30 bg-white/90 dark:bg-gray-800/90 gap-2 rounded-b-lg"
             >
+              {/* Hidden input for API key */}
+              <input type="hidden" name="apiKey" value={apiKey} />
+
+              {/* Chat input */}
               <input
                 type="text"
+                name="queryText" // Important: name matches what the action expects
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 placeholder="Type your message..."
                 className="flex-grow p-3 rounded-md bg-white/90 dark:bg-gray-700/90 border border-purple-200 dark:border-purple-900/30 focus:outline-none focus:ring-2 focus:ring-purple-400 dark:focus:ring-purple-600 text-sm placeholder-muted-foreground"
-                disabled={isLoading}
+                disabled={isSubmitting}
               />
+
+              {/* Submit button */}
               <Button
                 type="submit"
                 className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
-                disabled={isLoading || !apiKey || !chatInput.trim()}
+                disabled={isSubmitting || !apiKey || !chatInput.trim()}
               >
-                <SendHorizonalIcon className="h-5 w-5" />
+                {isSubmitting ? "Sending..." : "Send"}
               </Button>
-            </form>
+            </Form>
           </CardContent>
         </Card>
 

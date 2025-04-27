@@ -80,7 +80,7 @@ export default function Profile() {
             {/* Avatar Section */}
             <div className="flex flex-col items-center gap-4">
               <Avatar className="h-24 w-24">
-                <AvatarImage src="/logo.png" alt="@user" />
+                <AvatarImage src="https://github.com/shadcn.png" alt="@user" />
                 <AvatarFallback>{name.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
               <Button disabled variant="secondary" size="sm">
@@ -91,13 +91,14 @@ export default function Profile() {
             {/* Profile Form */}
             <Form method="post" className="flex flex-col gap-4">
               <div className="grid gap-2">
-                <UserInput
+                <Label htmlFor="name">Name</Label>
+                <Input
                   id="name"
-                  label="Name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
+                  disabled
                 />
               </div>
               <div className="grid gap-2">
@@ -186,7 +187,10 @@ export default function Profile() {
 
                 <div className="grid gap-2 mt-4">
                   <Button asChild variant="secondary" className="w-full">
-                    <Link to="/try">Create new API</Link>
+                    <Link to="/feature/try">Create new API</Link>
+                  </Button>
+                  <Button asChild variant="secondary" className="w-full">
+                    <Link to="/feature/chat">Demo a API key</Link>
                   </Button>
                 </div>
               </div>

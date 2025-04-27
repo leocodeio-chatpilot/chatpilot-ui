@@ -1,21 +1,23 @@
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import { queryApi } from "~/services/model.server";
 import { userSession } from "~/services/sessions.server";
+import { ActionResult, ActionResultError } from "~/types/action-result";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const websiteUrl = formData.get("websiteUrl") as string;
-  const websiteName = formData.get("websiteName") as string;
-
+export async function action({
+  request,
+}: ActionFunctionArgs): Promise<ActionResult<any>> {
   // Get user session
   const session = await userSession(request);
   const user = session.getUserSession();
 
   if (!user) {
-    return json(
-      { success: false, message: "Not authenticated" },
-      { status: 401 }
-    );
+    const result: ActionResultError<any> = {
+      success: false,
+      origin: "message",
+      data: null,
+      message: "User not authenticated",
+    };
+    return result;
   }
 
   try {
@@ -29,22 +31,32 @@ export async function action({ request }: ActionFunctionArgs) {
 
     if (!QueryApiResponse.ok) {
       const error = await QueryApiResponse.text();
-      return json(
-        { success: false, message: error || "Failed to create API" },
-        { status: QueryApiResponse.status }
-      );
+      const result: ActionResultError<any> = {
+        success: false,
+        origin: "message",
+        data: null,
+        message: error,
+      };
+      return result;
     }
 
     const data = await QueryApiResponse.json();
-    return json(
-      { success: true, message: "API created successfully", data },
-      { status: 200 }
-    );
+    const result: ActionResult<any> = {
+      success: true,
+      origin: "message",
+      data: data,
+      message: "API created successfully",
+    };
+    return result;
   } catch (error) {
     console.error("Error creating API:", error);
-    return json(
-      { success: false, message: "An error occurred while creating your API" },
-      { status: 500 }
-    );
+
+    const result: ActionResultError<any> = {
+      success: false,
+      origin: "message",
+      data: null,
+      message: "Error creating API",
+    };
+    return result;
   }
 }
