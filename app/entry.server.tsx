@@ -7,7 +7,8 @@
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
-import { renderToReadableStream } from "react-dom/server";
+// @ts-ignore
+import { renderToReadableStream } from "react-dom/server.browser";
 import Backend from "i18next-http-backend";
 import i18n from "./i18n";
 import i18next from "./lib/i18next.server";
