@@ -1,28 +1,38 @@
-# 🔹 Development Environment
-FROM node:23-alpine
-
-# Install OS dependencies if needed for runtime or dev server (e.g., native modules)
-# RUN apk add --no-cache openssl some-other-package
+# 🔹 Stage 1: Builder
+FROM node:20-slim AS builder
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files first to leverage Docker cache
-COPY package*.json ./
+# Copy package files first for better caching
+COPY package.json ./
 
-# Install all dependencies (including devDependencies)
-RUN npm install
+# Install dependencies with specific platform
+RUN npm install --legacy-peer-deps --frozen-lockfile --platform=linux --arch=x64
 
-# Copy the rest of the application code
-# Note: This ensures the code exists in the image if not mounted.
-# For development, you'll typically mount your local source code
-# using 'docker run -v $(pwd):/app' to see live changes.
+# Copy application source code
 COPY . .
 
-# Expose the port the development server listens on
-# Common defaults are 3000, 5173 (Vite), 8080. Adjust if necessary.
-EXPOSE 5173
+# Generate Prisma client & build application
+RUN npm run build
 
-# Command to run the development server
-# Adjust 'dev' if your script is named differently (e.g., 'start', 'serve:dev')
-CMD ["npm", "run", "dev"]
+# 🔹 Stage 2: Runner
+FROM node:20-slim AS runner
+
+# Set working directory
+WORKDIR /app
+
+# Copy necessary built files from builder
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/public ./public
+
+# Use non-root user for security
+USER node
+
+# Expose the required port
+EXPOSE 3000
+
+# Start application
+CMD ["npm", "run", "start"]
