@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.3...v1.2.4) (2025-04-27)
+
+
+### Performance Improvements
+
+* **added code that would connect to backend:** added code that would connect to backend ([17b958f](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/17b958f68fcd9c47c2a80aae84c91ef9238f04c5))
+
 ## [1.2.3](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.2...v1.2.3) (2025-04-26)
 
 
