@@ -1,3 +1,10 @@
+## [1.2.9](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.8...v1.2.9) (2025-04-27)
+
+
+### Performance Improvements
+
+* **start command:** start command ([b90ab85](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/b90ab8597a29e6b30dc79fc157f796d560960fe3))
+
 ## [1.2.8](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.7...v1.2.8) (2025-04-27)
 
 
