@@ -1,3 +1,10 @@
+## [1.2.7](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.6...v1.2.7) (2025-04-27)
+
+
+### Performance Improvements
+
+* **docker fiel:** docker fiel ([8060900](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/8060900c9c173b99bd5c4e2921600f4d1afd5b06))
+
 ## [1.2.6](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.5...v1.2.6) (2025-04-27)
 
 
