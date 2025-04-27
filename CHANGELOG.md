@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.4...v1.2.5) (2025-04-27)
+
+
+### Performance Improvements
+
+* **api keys creation and fetching:** api keys creation and fetching ([fb05b49](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/fb05b4923e30ccec950ceebe69d2e38721379b04))
+
 ## [1.2.4](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.3...v1.2.4) (2025-04-27)
 
 

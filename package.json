@@ -1,7 +1,7 @@
 {
   "name": "frontend_chatpilot",
   "private": true,
-  "version": "1.2.4",
+  "version": "1.2.5",
   "sideEffects": false,
   "type": "module",
   "scripts": {
