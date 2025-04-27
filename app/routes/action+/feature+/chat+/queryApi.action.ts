@@ -25,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
       queryText: formData.get("queryText") as string,
       apiKey: formData.get("apiKey") as string,
     };
-    const QueryApiResponse = await queryApi(queryApiKeyPayload);
+    const QueryApiResponse = await queryApi(queryApiKeyPayload, request);
 
     if (!QueryApiResponse.ok) {
       const error = await QueryApiResponse.text();

@@ -76,6 +76,15 @@ export async function userSession(request: Request) {
       }
       return null;
     },
+    getUserDetails: () => {
+      const user = session.get("user");
+      if (user) {
+        const { accessToken } = user;
+        const { id, email } = jwtDecode(accessToken) as any;
+        return { id, email };
+      }
+      return null;  
+    },
     getRole: () => {
       const user = session.get("user");
       if (user) {

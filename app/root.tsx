@@ -56,6 +56,7 @@ import "./tailwind.css";
 
 //-------------------------- i18n---------------------------------------
 import { useTranslation } from "react-i18next";
+import { Toaster } from "./components/ui/toaster";
 //-------------------------- i18n---------------------------------------
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -96,6 +97,7 @@ export function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
+        <Toaster />
       </body>
     </html>
   );

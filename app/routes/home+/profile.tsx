@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
 
 export async function loader({ request }: any) {
   const session = await userSession(request);
@@ -42,16 +43,20 @@ export async function loader({ request }: any) {
   }
   console.log("---3---start home/profile.ts", meResponse);
   const userData = await meResponse.json();
-  return { user: userData.payload.user };
+  console.log("---3.1---start home/profile.ts", userData.payload.apiKeys);
+  return { user: userData.payload.user, apikeys: userData.payload.apiKeys };
 }
 
 export default function Profile() {
-  const { user } = useLoaderData<typeof loader>();
+  const { user, apikeys } = useLoaderData<typeof loader>();
   console.log("---4---start home/profile.ts", user);
   const [name, setName] = useState(user?.username || "");
   const [email] = useState(user?.email || "");
-  const [apiKeys] = useState<any[]>(user?.apiKeys || []);
-  const [selectedWebsite, setSelectedWebsite] = useState("N/A");
+  const [apiKeys] = useState<any[]>(apikeys || []);
+  const [selectedWebsite, setSelectedWebsite] = useState(
+    "N/A(select a website)"
+  );
+  console.log("---5---start home/profile.ts", apiKeys);
 
   const selectedApiKey =
     apiKeys.find((api) => api.website_name === selectedWebsite)?.api_key ||
@@ -119,7 +124,9 @@ export default function Profile() {
                     <SelectValue placeholder="Select a website" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="N/A">N/A</SelectItem>
+                    <SelectItem value="N/A(select a website)">
+                      N/A(select a website from dropdown)
+                    </SelectItem>
                     {apiKeys.map((api: any) => (
                       <SelectItem
                         key={api.website_name.toString()}
@@ -136,6 +143,44 @@ export default function Profile() {
                     <code className="text-sm font-mono w-full overflow-x-auto">
                       {selectedApiKey ? selectedApiKey : "N/A"}
                     </code>
+                    {selectedApiKey && selectedApiKey !== "N/A" && (
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        className="ml-2 h-8 px-2"
+                        onClick={() => {
+                          navigator.clipboard.writeText(selectedApiKey);
+                          toast({
+                            title: "Copied!",
+                            description: "API key copied to clipboard",
+                          });
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <rect
+                            width="14"
+                            height="14"
+                            x="8"
+                            y="8"
+                            rx="2"
+                            ry="2"
+                          />
+                          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                        </svg>
+                        <span className="sr-only">Copy</span>
+                      </Button>
+                    )}
                   </div>
                 </div>
 

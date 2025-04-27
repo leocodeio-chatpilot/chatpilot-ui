@@ -9,8 +9,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   // Get user session
   const session = await userSession(request);
-  const user = session.getUserSession();
-
+  const user = session.getUserDetails();
+  console.log("user", user);
   if (!user) {
     return json(
       { success: false, message: "Not authenticated" },
@@ -20,8 +20,13 @@ export async function action({ request }: ActionFunctionArgs) {
 
   try {
     // Make API call to create a new API key
-    const createApiKeyPayload = { userId: user.id, websiteUrl, websiteName };
-    const createApiResponse = await createApiKey(createApiKeyPayload);
+    const createApiKeyPayload = {
+      userId: user.id,
+      websiteUrl,
+      websiteName,
+      mode: "sample" as "sample" | "complete",
+    };
+    const createApiResponse = await createApiKey(createApiKeyPayload, request);
     if (!createApiResponse.ok) {
       const error = await createApiResponse.text();
       return json(

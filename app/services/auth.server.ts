@@ -15,7 +15,7 @@ export const signup = async (signupPayload: SignupPayload) => {
       body: JSON.stringify(signupPayloadWithoutRole),
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.VITE_APP_API_KEY!,
+        "x-api-key": process.env.UM_API_KEY!,
       },
       credentials: "include",
       mode: "cors",
@@ -40,7 +40,7 @@ export const signin = async (signinPayload: SigninPayload) => {
       body: JSON.stringify(signinPayloadWithoutRole),
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.VITE_APP_API_KEY!,
+        "x-api-key": process.env.UM_API_KEY!,
       },
       credentials: "include",
       mode: "cors",
@@ -62,7 +62,7 @@ export const logout = async (role: string, request: Request) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": process.env.VITE_APP_API_KEY!,
+      "x-api-key": process.env.UM_API_KEY!,
       Cookie: `access-token=${accessToken}; refresh-token=${refreshToken};`,
     },
     credentials: "include",
@@ -81,7 +81,7 @@ export const me = async (role: string, request: Request) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": process.env.VITE_APP_API_KEY!,
+      "x-api-key": process.env.UM_API_KEY!,
       Cookie: `access-token=${accessToken}; refresh-token=${refreshToken};`,
     },
     credentials: "include",
