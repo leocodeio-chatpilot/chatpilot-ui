@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.9...v1.2.10) (2025-04-27)
+
+
+### Bug Fixes
+
+* **solve dep error:** solve dep error ([dd7ece0](https://github.com/leocodeio-chatpilot/chatpilot-ui/commit/dd7ece0ba119d556f83cadb56d254f73a04a5206))
+
 ## [1.2.9](https://github.com/leocodeio-chatpilot/chatpilot-ui/compare/v1.2.8...v1.2.9) (2025-04-27)
 
 
