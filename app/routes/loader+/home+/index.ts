@@ -1,5 +1,5 @@
 import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
-import { userSession } from "@/services/sessions.server";
+import { userSession } from "~/services/sessions.server";
 
 export async function loader({
   request,

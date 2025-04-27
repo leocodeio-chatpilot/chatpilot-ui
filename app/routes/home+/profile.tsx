@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserInput } from "@/components/self/user-input";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { userSession } from "@/services/sessions.server";
+import { userSession } from "~/services/sessions.server";
 import { redirect } from "@remix-run/node";
 import { me } from "@/services/auth.server";
 import {

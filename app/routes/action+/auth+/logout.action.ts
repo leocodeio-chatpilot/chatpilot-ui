@@ -1,4 +1,4 @@
-import { userSession } from "@/services/sessions.server";
+import { userSession } from "~/services/sessions.server";
 import { ActionFunctionArgs, redirect } from "@remix-run/node";
 import { logout } from "@/services/auth.server";
 

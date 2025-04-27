@@ -6,7 +6,7 @@ import {
   ActionResultSuccess,
   ORIGIN,
 } from "@/types/action-result";
-import { userSession } from "@/services/sessions.server";
+import { userSession } from "~/services/sessions.server";
 import { signinPayloadSchema } from "@/services/schemas/signin.schema";
 import { signupPayloadSchema } from "@/services/schemas/signup.schema";
 

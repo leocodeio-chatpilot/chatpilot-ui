@@ -11,71 +11,13 @@ import {
 import { Home, Loader2 } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { useTranslation } from "react-i18next";
-import { ActionFunctionArgs, json } from "@remix-run/node";
-import { userSession } from "~/services/sessions.server";
 import { ModeToggle } from "~/components/mode-toggle";
 import { Input } from "~/components/ui/input";
 import { toast } from "~/hooks/use-toast";
 import { Label } from "~/components/ui/label";
 
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const websiteUrl = formData.get("websiteUrl") as string;
-  const websiteName = formData.get("websiteName") as string;
-
-  // Get user session
-  const session = await userSession(request);
-  const user = session.getUserSession();
-
-  if (!user) {
-    return json(
-      { success: false, message: "Not authenticated" },
-      { status: 401 }
-    );
-  }
-
-  try {
-    // Make API call to create a new API key
-    const response = await fetch(
-      `${process.env.VITE_APP_USER_BACKEND_MODEL_URL}/add-api`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": process.env.VITE_APP_API_KEY || "",
-          Cookie: `access-token=${
-            session.getAcessAndRefreshToken().accessToken
-          }; refresh-token=${session.getAcessAndRefreshToken().refreshToken};`,
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          websiteUrl,
-          websiteName,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const error = await response.text();
-      return json(
-        { success: false, message: error || "Failed to create API" },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    return json(
-      { success: true, message: "API created successfully", data },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error("Error creating API:", error);
-    return json(
-      { success: false, message: "An error occurred while creating your API" },
-      { status: 500 }
-    );
-  }
-}
+import { action as createApiKeyAction } from "~/routes/action+/feature+/try+/createApiKey.acion";
+export const action = createApiKeyAction;
 
 export default function Try() {
   const { t } = useTranslation();
@@ -83,7 +25,6 @@ export default function Try() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const actionData = useActionData<{ success: boolean; message: string }>();
-  const submit = useSubmit();
 
   // Handle form submission result
   if (actionData) {

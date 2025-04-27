@@ -1,7 +1,7 @@
 import { type ActionFunctionArgs } from "@remix-run/node";
 import { signin } from "@/services/auth.server";
 import { SigninPayload, User } from "@/types/user";
-import { userSession } from "@/services/sessions.server";
+import { userSession } from "~/services/sessions.server";
 import {
   ActionResultError,
   ActionResultSuccess,
@@ -101,7 +101,7 @@ export async function action({ request }: ActionFunctionArgs) {
   console.log("debug log 3 - signin.action.ts", session.getUser());
   const result: ActionResultSuccess<User> = {
     success: true,
-    
+
     message: "Signin successful",
     data: null,
   };
